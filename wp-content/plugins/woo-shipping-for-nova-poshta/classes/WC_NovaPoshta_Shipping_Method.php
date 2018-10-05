@@ -169,7 +169,6 @@ class WC_NovaPoshta_Shipping_Method extends WC_Shipping_Method
             }
         }
         // Register the rate
-        $rate = apply_filters('woo_shipping_for_nova_poshta_before_add_rate', $rate, $cityRecipient);
         $this->add_rate($rate);
     }
 
@@ -193,10 +192,10 @@ class WC_NovaPoshta_Shipping_Method extends WC_Shipping_Method
 
         $descriptions = array();
         $descriptions[] = __('Shipping with popular Ukrainian logistic company Nova Poshta', NOVA_POSHTA_DOMAIN);
-        if (NP()->options->pluginRated) {
-            $descriptions[] = __('Thank you for encouraging us!', NOVA_POSHTA_DOMAIN);
-        } else {
+        if (!NP()->options->pluginRated) {
             $descriptions[] = sprintf(__("If you like our work, please leave us a %s rating!", NOVA_POSHTA_DOMAIN), $link);
+        } else {
+            $descriptions[] = __('Thank you for encouraging us!', NOVA_POSHTA_DOMAIN);
         }
         return implode($descriptions, '<br>');
     }

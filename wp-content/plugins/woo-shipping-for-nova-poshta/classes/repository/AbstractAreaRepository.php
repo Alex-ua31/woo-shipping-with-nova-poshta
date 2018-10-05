@@ -35,7 +35,6 @@ abstract class AbstractAreaRepository extends Base
 
         $areas = $this->findByParentRefAndNameSuggestion($areaRef, $name);
         $result = OptionsHelper::getList($areas, false);
-        natsort($result);
         echo json_encode($result);
         exit;
     }
